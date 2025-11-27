@@ -1,14 +1,16 @@
-apiVersion: route.openshift.io/v1
 kind: Route
+apiVersion: route.openshift.io/v1
 metadata:
-  labels:
-    app: quotes
-    sandbox: learn-kubernetes
-    learn-kubernetes: quotes
   name: quotes
 spec:
-  port:
-    targetPort: 10000-tcp
+  host: quotes-254500-magr.apps.exoscale-ch-gva-2-0.appuio.cloud
   to:
     kind: Service
     name: quotes
+    weight: 100
+  port:
+    targetPort: 10000-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
